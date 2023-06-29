@@ -17,6 +17,7 @@ const GeradorTexto = () => {
   const [dataViagem, setDataViagem] = useState("");
   const [mensagemErro, setMensagemErro] = useState("");
   const [textoGerado, setTextoGerado] = useState("");
+  const [solucao, setSolucao] = useState("");
 
   const gerarTexto = () => {
     if (
@@ -32,23 +33,24 @@ const GeradorTexto = () => {
       !houveTrocaCarro ||
       !horarioRetorno ||
       !horarioChegadaIguatu ||
-      !dataViagem
+      !dataViagem ||
+      !solucao
     ) {
       setMensagemErro("Preencha todos os campos!");
       setTextoGerado("");
       return;
     }
 
-    const textoGerado = `Informo que o carro ${numeroCarro}, horário ${horarioCarro}, linha ${linhaCarro}, do dia ${dataViagem}, foi socorrido com o carro ${numeroSocorro}. Segue abaixo as informações.
+    const textoGerado = `Informo que o carro ${numeroCarro}, horário ${horarioCarro}, linha ${linhaCarro.toUpperCase()}, do dia ${dataViagem}, foi socorrido com o carro ${numeroSocorro}. Segue abaixo as informações.
 - Horário do Chamado: ${horarioChamado}
 - Horário da Saída do Socorro: ${horarioSaidaSocorro}
 - Chegado no Local: ${chegadaLocal}
 - Motivo do SOS: ${motivoSOS}
 - Local: ${localSOS}
-- Houve Troca do Carro? ${houveTrocaCarro}
+- Houve Troca do Carro? ${houveTrocaCarro.toUpperCase()}
 - Horário de Retorno: ${horarioRetorno}
-- Horário de Chegada em Iguatu: ${horarioChegadaIguatu}`;
-
+- Horário de Chegada em Iguatu: ${horarioChegadaIguatu}
+- Solução: ${solucao}`;
     setMensagemErro("");
     setTextoGerado(textoGerado);
     limparInputs();
@@ -81,7 +83,7 @@ const GeradorTexto = () => {
 
       <label>Horário do Carro:</label>
       <input
-        type="text"
+        type="time"
         value={horarioCarro}
         onChange={(e) => setHorarioCarro(e.target.value)}
       />
@@ -93,7 +95,7 @@ const GeradorTexto = () => {
         onChange={(e) => setLinhaCarro(e.target.value)}
       />
 
-      <label>Número do Socorro:</label>
+      <label>Nº do carro Socorro:</label>
       <input
         type="text"
         value={numeroSocorro}
@@ -102,21 +104,21 @@ const GeradorTexto = () => {
 
       <label>Horário do Chamado:</label>
       <input
-        type="text"
+        type="time"
         value={horarioChamado}
         onChange={(e) => setHorarioChamado(e.target.value)}
       />
 
       <label>Horário da Saída do Socorro:</label>
       <input
-        type="text"
+        type="time"
         value={horarioSaidaSocorro}
         onChange={(e) => setHorarioSaidaSocorro(e.target.value)}
       />
 
       <label>Chegado no Local:</label>
       <input
-        type="text"
+        type="time"
         value={chegadaLocal}
         onChange={(e) => setChegadaLocal(e.target.value)}
       />
@@ -144,24 +146,27 @@ const GeradorTexto = () => {
 
       <label>Horário de Retorno:</label>
       <input
-        type="text"
+        type="time"
         value={horarioRetorno}
         onChange={(e) => setHorarioRetorno(e.target.value)}
       />
 
       <label>Horário de Chegada em Iguatu:</label>
       <input
-        type="text"
+        type="time"
         value={horarioChegadaIguatu}
         onChange={(e) => setHorarioChegadaIguatu(e.target.value)}
       />
 
       <label>Data da Viagem:</label>
       <input
-        type="text"
+        type="date"
         value={dataViagem}
         onChange={(e) => setDataViagem(e.target.value)}
       />
+
+      <label>Solução:</label>
+      <textarea value={solucao} onChange={(e) => setSolucao(e.target.value)} />
 
       <button onClick={gerarTexto}>Gerar Texto</button>
 
