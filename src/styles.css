@@ -57,7 +57,11 @@ button {
 
   input[type="text"],
   input[type="time"],
-  input[type="date"],
+  input[type="date"] {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
   textarea {
     width: 100%;
     max-width: 400px;
