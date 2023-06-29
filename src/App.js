@@ -6,7 +6,6 @@ export default function App() {
   return (
     <div className="App">
       <h1>Bem vindo ao gerado</h1>
-      <q>Página criada por Genário Carneiro</q>
       <GeradorTexto />
       <Footer />
     </div>
