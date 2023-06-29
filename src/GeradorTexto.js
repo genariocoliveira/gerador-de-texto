@@ -61,6 +61,8 @@ const GeradorTexto = () => {
   };
 
   const limparInputs = () => {
+    setNomeMotorista("");
+    setPlantaoCco("");
     setNumeroCarro("");
     setHorarioCarro("");
     setLinhaCarro("");
