@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./styles.css"; // Importar o arquivo CSS
 
 const GeradorTexto = () => {
+  const [nomeMotorista, setNomeMotorista] = useState("");
+  const [plantaoCco, setPlantaoCco] = useState("");
   const [numeroCarro, setNumeroCarro] = useState("");
   const [horarioCarro, setHorarioCarro] = useState("");
   const [linhaCarro, setLinhaCarro] = useState("");
@@ -42,15 +44,17 @@ const GeradorTexto = () => {
     }
 
     const textoGerado = `Informo que o carro ${numeroCarro}, horário ${horarioCarro}, linha ${linhaCarro.toUpperCase()}, do dia ${dataViagem}, foi socorrido com o carro ${numeroSocorro}. Segue abaixo as informações.
+- Motorista: ${nomeMotorista.toUpperCase()}
+- Plantão CCO: ${plantaoCco.toUpperCase()}
 - Horário do Chamado: ${horarioChamado}
 - Horário da Saída do Socorro: ${horarioSaidaSocorro}
-- Chegado no Local: ${chegadaLocal}
-- Motivo do SOS: ${motivoSOS}
-- Local: ${localSOS}
+- Chegado no Local: ${chegadaLocal.toUpperCase()}
+- Motivo do SOS: ${motivoSOS.toUpperCase()}
+- Local: ${localSOS.toUpperCase()}
 - Houve Troca do Carro? ${houveTrocaCarro.toUpperCase()}
 - Horário de Retorno: ${horarioRetorno}
 - Horário de Chegada em Iguatu: ${horarioChegadaIguatu}
-- Solução: ${solucao}`;
+- Solução: ${solucao.toUpperCase()}`;
     setMensagemErro("");
     setTextoGerado(textoGerado);
     limparInputs();
@@ -74,6 +78,20 @@ const GeradorTexto = () => {
 
   return (
     <div className="container">
+      <label>Motorista:</label>
+      <input
+        type="text"
+        value={nomeMotorista}
+        onChange={(e) => setNomeMotorista(e.target.value)}
+      />
+
+      <label>Plantão CCO:</label>
+      <input
+        type="text"
+        value={plantaoCco}
+        onChange={(e) => setPlantaoCco(e.target.value)}
+      />
+
       <label>Número do Carro:</label>
       <input
         type="text"
