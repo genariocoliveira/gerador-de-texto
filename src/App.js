@@ -5,7 +5,7 @@ import Footer from "./Footer.js";
 export default function App() {
   return (
     <div className="App">
-      <h1>Bem vindo ao gerado</h1>
+      <h1>BEM VINDO AO GERADOR DE CHAMADOS</h1>
       <GeradorTexto />
       <Footer />
     </div>
