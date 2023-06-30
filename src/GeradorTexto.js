@@ -75,7 +75,7 @@ const GeradorTexto = () => {
     setHouveTrocaCarro("");
     setHorarioRetorno("");
     setHorarioChegadaIguatu("");
-    setDataViagem("");
+    setDataViagem(""); 
   };
 
   return (
