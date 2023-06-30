@@ -75,14 +75,25 @@ const GeradorTexto = () => {
     setHouveTrocaCarro("");
     setHorarioRetorno("");
     setHorarioChegadaIguatu("");
-    setDataViagem(""); 
+    setDataViagem("");
   };
-
+  const handleCopyClick = () => {
+    const textToCopy = textRef.current.textContent;
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        alert("Texto copiado com sucesso!");
+      })
+      .catch((error) => {
+        console.error("Erro ao copiar o texto:", error);
+      });
+  };
   return (
     <div className="container">
       <label>Motorista:</label>
       <input
         type="text"
+        placehokder="Nome do motorista"
         value={nomeMotorista}
         onChange={(e) => setNomeMotorista(e.target.value)}
       />
