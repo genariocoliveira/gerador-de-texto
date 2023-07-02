@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./styles.css"; // Importar o arquivo CSS
 
 const GeradorTexto = () => {
@@ -20,6 +20,7 @@ const GeradorTexto = () => {
   const [mensagemErro, setMensagemErro] = useState("");
   const [textoGerado, setTextoGerado] = useState("");
   const [solucao, setSolucao] = useState("");
+  const textRef = useRef();
 
   const gerarTexto = () => {
     if (
@@ -35,8 +36,7 @@ const GeradorTexto = () => {
       !houveTrocaCarro ||
       !horarioRetorno ||
       !horarioChegadaIguatu ||
-      !dataViagem ||
-      !solucao
+      !dataViagem
     ) {
       setMensagemErro("Preencha todos os campos!");
       setTextoGerado("");
@@ -53,40 +53,25 @@ const GeradorTexto = () => {
 - Local: ${localSOS.toUpperCase()}
 - Houve Troca do Carro? ${houveTrocaCarro.toUpperCase()}
 - Horário de Retorno: ${horarioRetorno}
-- Horário de Chegada em Iguatu: ${horarioChegadaIguatu}
-- Solução: ${solucao.toUpperCase()}`;
+- Horário de Chegada em Iguatu: ${horarioChegadaIguatu}`;
+
     setMensagemErro("");
     setTextoGerado(textoGerado);
-    limparInputs();
   };
 
-  const limparInputs = () => {
-    setNomeMotorista("");
-    setPlantaoCco("");
-    setNumeroCarro("");
-    setHorarioCarro("");
-    setLinhaCarro("");
-    setNumeroSocorro("");
-    setHorarioChamado("");
-    setHorarioSaidaSocorro("");
-    setChegadaLocal("");
-    setMotivoSOS("");
-    setLocalSOS("");
-    setHouveTrocaCarro("");
-    setHorarioRetorno("");
-    setHorarioChegadaIguatu("");
-    setDataViagem("");
-  };
   const handleCopyClick = () => {
-    const textToCopy = textRef.current.textContent;
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        alert("Texto copiado com sucesso!");
-      })
-      .catch((error) => {
-        console.error("Erro ao copiar o texto:", error);
-      });
+    if (textRef.current) {
+      const range = document.createRange();
+      range.selectNodeContents(textRef.current);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      document.execCommand("copy");
+      selection.removeAllRanges();
+
+      alert("Texto copiado com sucesso!");
+    }
   };
   return (
     <div className="container">
@@ -206,7 +191,10 @@ const GeradorTexto = () => {
       {textoGerado && (
         <div className="texto-gerado-container">
           <h3>Texto Gerado:</h3>
-          <pre className="texto-gerado">{textoGerado}</pre>
+          <pre className="texto-gerado" ref={textRef}>
+            {textoGerado}
+          </pre>
+          <button onClick={handleCopyClick}>Copiar Texto</button>
         </div>
       )}
     </div>
