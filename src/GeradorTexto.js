@@ -53,7 +53,8 @@ const GeradorTexto = () => {
 - Local: ${localSOS.toUpperCase()}
 - Houve Troca do Carro? ${houveTrocaCarro.toUpperCase()}
 - Horário de Retorno: ${horarioRetorno}
-- Horário de Chegada em Iguatu: ${horarioChegadaIguatu}`;
+- Horário de Chegada em Iguatu: ${horarioChegadaIguatu}
+- Solução: ${solucao}`;
 
     setMensagemErro("");
     setTextoGerado(textoGerado);
