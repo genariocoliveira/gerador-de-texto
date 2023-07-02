@@ -42,7 +42,23 @@ const GeradorTexto = () => {
       setTextoGerado("");
       return;
     }
-
+    const limparInputs = () => {
+    setNomeMotorista("");
+    setPlantaoCco("");
+    setNumeroCarro("");
+    setHorarioCarro("");
+    setLinhaCarro("");
+    setNumeroSocorro("");
+    setHorarioChamado("");
+    setHorarioSaidaSocorro("");
+    setChegadaLocal("");
+    setMotivoSOS("");
+    setLocalSOS("");
+    setHouveTrocaCarro("");
+    setHorarioRetorno("");
+    setHorarioChegadaIguatu("");
+    setDataViagem("");
+  };
     const textoGerado = `Informo que o carro ${numeroCarro}, horário ${horarioCarro}, linha ${linhaCarro.toUpperCase()}, do dia ${dataViagem}, foi socorrido com o carro ${numeroSocorro}. Segue abaixo as informações.
 - Motorista: ${nomeMotorista.toUpperCase()}
 - Plantão CCO: ${plantaoCco.toUpperCase()}
@@ -58,6 +74,7 @@ const GeradorTexto = () => {
 
     setMensagemErro("");
     setTextoGerado(textoGerado);
+    limparInputs();
   };
 
   const handleCopyClick = () => {
@@ -74,12 +91,13 @@ const GeradorTexto = () => {
       alert("Texto copiado com sucesso!");
     }
   };
+
   return (
     <div className="container">
       <label>Motorista:</label>
       <input
         type="text"
-        placehokder="Nome do motorista"
+        placeholder="Nome do motorista"
         value={nomeMotorista}
         onChange={(e) => setNomeMotorista(e.target.value)}
       />
@@ -87,6 +105,7 @@ const GeradorTexto = () => {
       <label>Plantão CCO:</label>
       <input
         type="text"
+        placeholder="Nome do plantonista"
         value={plantaoCco}
         onChange={(e) => setPlantaoCco(e.target.value)}
       />
@@ -101,6 +120,7 @@ const GeradorTexto = () => {
       <label>Horário do Carro:</label>
       <input
         type="time"
+        placeholder="Informe o horário do carro"
         value={horarioCarro}
         onChange={(e) => setHorarioCarro(e.target.value)}
       />
