@@ -7,7 +7,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: center;
-  background-color: #ebeaea;
+  background-color: #d6d6d6;
 }
 .container {
   display: flex;
@@ -53,8 +53,15 @@ button {
   box-sizing: border-box;
   background: #173753;
   color: #fff;
+  cursor: pointer;
+  transition: all ease-in 300ms;
 }
-
+button:hover {
+  background-color: #40719b;
+}
+button:active {
+  transform: scale(0.9);
+}
 @media (min-width: 375px) {
   /* Estilos para telas maiores que 768px */
   .container {
