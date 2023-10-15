@@ -1,0 +1,12 @@
+.form{
+    @apply mx-auto flex flex-col gap-3 w-full sm:w-2/5 bg-slate-50 rounded-xl px-8 py-6 shadow-md;
+}
+.input-type{
+    @apply border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 w-full;
+}
+.label-type{
+    @apply block text-sm font-medium text-gray-700; 
+}
+textarea{
+    @apply border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-md;
+}

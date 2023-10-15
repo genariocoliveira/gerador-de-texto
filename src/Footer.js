@@ -1,10 +1,9 @@
 import React from "react";
-import "./styles.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <p className="footer-text">
+    <footer className="bg-yellow-600 shadow-lg mt-5 text-center">
+      <p className="font-bold text-gray-700">
         © Genário Carneiro. Todos os direitos reservados.
       </p>
     </footer>
