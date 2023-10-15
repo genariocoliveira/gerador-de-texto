@@ -1,7 +1,6 @@
 import "./globals.css";
 import React, { useState, useRef } from "react";
-import { format } from 'date-fns-tz';
-
+import { format } from "date-fns-tz";
 
 const GeradorTexto = () => {
   const [nomeMotorista, setNomeMotorista] = useState("");
@@ -150,7 +149,7 @@ const GeradorTexto = () => {
       <label>Nº do carro Socorro:</label>
       <input
         className="input-type"
-        type="text"
+        type="number"
         value={numeroSocorro}
         onChange={(e) => setNumeroSocorro(e.target.value)}
       />
