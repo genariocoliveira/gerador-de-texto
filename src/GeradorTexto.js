@@ -142,6 +142,7 @@ const GeradorTexto = () => {
       <input
         className="input-type"
         type="text"
+        placeholder="Percurso do carro"
         value={linhaCarro}
         onChange={(e) => setLinhaCarro(e.target.value)}
       />
@@ -150,6 +151,7 @@ const GeradorTexto = () => {
       <input
         className="input-type"
         type="number"
+        placeholder="Nº do carro Socorro"
         value={numeroSocorro}
         onChange={(e) => setNumeroSocorro(e.target.value)}
       />
@@ -182,6 +184,7 @@ const GeradorTexto = () => {
       <input
         className="input-type"
         type="text"
+        placeholder="Ex. Pneu furado"
         value={motivoSOS}
         onChange={(e) => setMotivoSOS(e.target.value)}
       />
@@ -190,6 +193,7 @@ const GeradorTexto = () => {
       <input
         className="input-type"
         type="text"
+        placeholder="Onde foi o socorro?"
         value={localSOS}
         onChange={(e) => setLocalSOS(e.target.value)}
       />
@@ -198,6 +202,7 @@ const GeradorTexto = () => {
       <input
         className="input-type"
         type="text"
+        placeholder="Sim / Não"
         value={houveTrocaCarro}
         onChange={(e) => setHouveTrocaCarro(e.target.value)}
       />
@@ -227,7 +232,11 @@ const GeradorTexto = () => {
       />
 
       <label>Solução:</label>
-      <textarea value={solucao} onChange={(e) => setSolucao(e.target.value)} />
+      <textarea
+        value={solucao}
+        placeholder="Preencha a Solução do problema."
+        onChange={(e) => setSolucao(e.target.value)}
+      />
 
       <button
         onClick={gerarTexto}
