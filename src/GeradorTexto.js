@@ -1,6 +1,5 @@
 import "./globals.css";
 import React, { useState, useRef } from "react";
-import { format } from "date-fns-tz";
 
 const GeradorTexto = () => {
   const [nomeMotorista, setNomeMotorista] = useState("");
@@ -26,29 +25,19 @@ const GeradorTexto = () => {
 
   const gerarTexto = () => {
     if (
+      !nomeMotorista ||
       !numeroCarro ||
       !horarioCarro ||
       !linhaCarro ||
-      !numeroSocorro ||
-      !horarioChamado ||
-      !horarioSaidaSocorro ||
-      !chegadaLocal ||
-      !motivoSOS ||
-      !localSOS ||
-      !houveTrocaCarro ||
-      !horarioRetorno ||
-      !horarioChegadaIguatu ||
       !dataViagem
     ) {
-      setMensagemErro("Preencha todos os campos!");
+      setMensagemErro("Campo obrigatório!");
       setTextoGerado("");
       return;
     }
-
-    // const dataFormatada = format(new Date(dataViagem), 'dd/MM/yyyy
-
-    // Analisa a data no formato ISO
-    const dataFormatada = format(new Date(), "dd/MM/yyyy");
+    if (!numeroSocorro) {
+      setNumeroSocorro("###");
+    }
 
     const limparInputs = () => {
       setNomeMotorista("");
@@ -66,19 +55,20 @@ const GeradorTexto = () => {
       setHorarioRetorno("");
       setHorarioChegadaIguatu("");
       setDataViagem("");
+      setSolucao("");
     };
-    const textoGerado = `Informo que o carro ${numeroCarro}, horário ${horarioCarro}, linha ${linhaCarro.toUpperCase()}, do dia ${dataFormatada}, foi socorrido com o carro ${numeroSocorro}. Segue abaixo as informações.
-    - Motorista: ${nomeMotorista.toUpperCase()}
-    - Plantão CCO: ${plantaoCco.toUpperCase()}
-    - Horário do Chamado: ${horarioChamado}
-    - Horário da Saída do Socorro: ${horarioSaidaSocorro}
-    - Chegado no Local: ${chegadaLocal.toUpperCase()}
-    - Motivo do SOS: ${motivoSOS.toUpperCase()}
-    - Local: ${localSOS.toUpperCase()}
-    - Houve Troca do Carro? ${houveTrocaCarro.toUpperCase()}
-    - Horário de Retorno: ${horarioRetorno}
-    - Horário de Chegada em Iguatu: ${horarioChegadaIguatu}
-    - Solução: ${solucao}`;
+    const textoGerado = `Informo que o carro *${numeroCarro}*, horário *${horarioCarro}*, linha *${linhaCarro.toUpperCase()}*, do dia *${dataViagem}*, foi socorrido com o carro *${numeroSocorro}*. Segue abaixo as informações.
+    - Motorista: *${nomeMotorista.toUpperCase()}*
+    - Plantão CCO: *${plantaoCco.toUpperCase()}*
+    - Horário do Chamado: *${horarioChamado}*
+    - Horário da Saída do Socorro: *${horarioSaidaSocorro}*
+    - Chegado no Local: *${chegadaLocal.toUpperCase()}*
+    - Motivo do SOS: *${motivoSOS.toUpperCase()}*
+    - Local: *${localSOS.toUpperCase()}*
+    - Houve Troca do Carro? *${houveTrocaCarro.toUpperCase()}*
+    - Horário de Retorno: *${horarioRetorno}*
+    - Horário de Chegada em Iguatu: *${horarioChegadaIguatu}*
+    - Solução: *${solucao}*`;
 
     setMensagemErro("");
     setTextoGerado(textoGerado);
@@ -100,9 +90,75 @@ const GeradorTexto = () => {
     }
   };
 
+  function formatarHorarioCarro() {
+    let horarioCar = document.querySelector("#horarioCarr");
+    let hCar = horarioCar.value;
+    if (hCar.length === 2) {
+      hCar = hCar + ":";
+      horarioCar.value = hCar; // Correção aqui
+    }
+  }
+  function formatarHorarioChamado() {
+    let horarioChamado = document.querySelector("#horarioChamado");
+    let chamado = horarioChamado.value;
+    if (chamado.length === 2) {
+      chamado = chamado + ":";
+      horarioChamado.value = chamado;
+    }
+  }
+  function formatarHorarioSaida() {
+    let saida = document.querySelector("#horaSaida");
+    let saidaH = saida.value;
+    if (saidaH.length === 2) {
+      saidaH = saidaH + ":";
+      saida.value = saidaH;
+    }
+  }
+  function formatarChegadaLocal() {
+    let chegadaLocal = document.querySelector("#chegadaLocal");
+    let local = chegadaLocal.value;
+    if (local.length === 2) {
+      local = local + ":";
+      chegadaLocal.value = local;
+    }
+  }
+  function formatarHorarioRetorno() {
+    let horarioRetorno = document.querySelector("#horarioRetorno");
+    let retorno = horarioRetorno.value;
+    if (retorno.length === 2) {
+      retorno = retorno + ":";
+      horarioRetorno.value = retorno;
+    }
+  }
+  function horarioChegadaIgu() {
+    let horaChegadaIAU = document.querySelector("#horaChegadaIgu"); // Adicione # antes de "horaChegadaIAU"
+    let HChegada = horaChegadaIAU.value;
+    if (HChegada.length === 2) {
+      HChegada = HChegada + ":";
+      horaChegadaIAU.value = HChegada;
+    }
+  }
+  function formatarDataViagem() {
+    let viagem = document.querySelector("#dataViagem");
+    let data = viagem.value;
+    if (data.length === 2) {
+      data = data + "/";
+      viagem.value = data;
+    }
+    if (data.length === 5) {
+      data = data + "/";
+      viagem.value = data;
+    }
+  }
+
   return (
     <div className="form break-words">
-      <label>Motorista:</label>
+      <label>
+        Motorista:<spam className="text-red-500">*</spam>
+        {mensagemErro && (
+          <p className="text-red-500 text-[.8rem]">{mensagemErro}</p>
+        )}
+      </label>
       <input
         className="input-type"
         type="text"
@@ -111,34 +167,44 @@ const GeradorTexto = () => {
         onChange={(e) => setNomeMotorista(e.target.value)}
       />
 
-      <label>Plantão CCO:</label>
+      <label>
+        Número do Carro:<spam className="text-red-500">*</spam>
+        {mensagemErro && (
+          <p className="text-red-500 text-[.8rem]">{mensagemErro}</p>
+        )}
+      </label>
       <input
         className="input-type"
         type="text"
-        placeholder="Nome do plantonista"
-        value={plantaoCco}
-        onChange={(e) => setPlantaoCco(e.target.value)}
-      />
-
-      <label>Número do Carro:</label>
-      <input
-        className="input-type"
-        type="number"
         placeholder="Número do Carro"
         value={numeroCarro}
         onChange={(e) => setNumeroCarro(e.target.value)}
+        maxLength={5}
       />
 
-      <label>Horário do Carro:</label>
+      <label>
+        Horário do Carro:<spam className="text-red-500">*</spam>
+        {mensagemErro && (
+          <p className="text-red-500 text-[.8rem]">{mensagemErro}</p>
+        )}
+      </label>
       <input
+        id="horarioCarr"
         className="input-type"
-        type="time"
+        type="text"
         placeholder="Informe o horário do carro"
         value={horarioCarro}
+        onKeyPress={formatarHorarioCarro} // Correção aqui
         onChange={(e) => setHorarioCarro(e.target.value)}
+        maxLength={5}
       />
 
-      <label>Linha do Carro:</label>
+      <label>
+        Linha do Carro:<spam className="text-red-500">*</spam>
+        {mensagemErro && (
+          <p className="text-red-500 text-[.8rem]">{mensagemErro}</p>
+        )}
+      </label>
       <input
         className="input-type"
         type="text"
@@ -147,40 +213,79 @@ const GeradorTexto = () => {
         onChange={(e) => setLinhaCarro(e.target.value)}
       />
 
-      <label>Nº do carro Socorro:</label>
+      <label>
+        Data da Viagem:<spam className="text-red-500">*</spam>
+        {mensagemErro && (
+          <p className="text-red-500 text-[.8rem]">{mensagemErro}</p>
+        )}
+      </label>
+      <input
+        id="dataViagem"
+        className="input-type"
+        type="text"
+        placeholder="Informe a data da viagem"
+        value={dataViagem}
+        onKeyPress={formatarDataViagem}
+        onChange={(e) => setDataViagem(e.target.value)}
+        maxLength={10}
+      />
+
+      <label>
+        Nº do carro Socorro:<spam className="text-red-500">*</spam>
+      </label>
       <input
         className="input-type"
-        type="number"
+        type="text"
         placeholder="Nº do carro Socorro"
         value={numeroSocorro}
         onChange={(e) => setNumeroSocorro(e.target.value)}
+        maxLength={5}
       />
 
-      <label>Horário do Chamado:</label>
+      <label>
+        Horário do Chamado:<spam className="text-red-500">*</spam>
+      </label>
       <input
+        id="horarioChamado"
         className="input-type"
-        type="time"
+        type="text"
         value={horarioChamado}
+        placeholder="Horário do chamado"
+        onKeyPress={formatarHorarioChamado}
         onChange={(e) => setHorarioChamado(e.target.value)}
+        maxLength={5}
       />
 
-      <label>Horário da Saída do Socorro:</label>
+      <label>
+        Horário da Saída do Socorro:<spam className="text-red-500">*</spam>
+      </label>
       <input
+        id="horaSaida"
         className="input-type"
-        type="time"
+        type="text"
+        placeholder="Horário de Saída"
         value={horarioSaidaSocorro}
+        onKeyPress={formatarHorarioSaida}
         onChange={(e) => setHorarioSaidaSocorro(e.target.value)}
+        maxLength={5}
       />
 
-      <label>Chegado no Local:</label>
+      <label>
+        Chegado no Local:<spam className="text-red-500">*</spam>
+      </label>
       <input
+        id="chegadaLocal"
         className="input-type"
-        type="time"
+        type="text"
+        placeholder="Horário de chegada no local do SOS"
         value={chegadaLocal}
         onChange={(e) => setChegadaLocal(e.target.value)}
+        onKeyPress={formatarChegadaLocal}
       />
 
-      <label>Motivo do SOS:</label>
+      <label>
+        Motivo do SOS:<spam className="text-red-500">*</spam>
+      </label>
       <input
         className="input-type"
         type="text"
@@ -189,7 +294,9 @@ const GeradorTexto = () => {
         onChange={(e) => setMotivoSOS(e.target.value)}
       />
 
-      <label>Local do Socorro:</label>
+      <label>
+        Local do Socorro:<spam className="text-red-500">*</spam>
+      </label>
       <input
         className="input-type"
         type="text"
@@ -198,7 +305,9 @@ const GeradorTexto = () => {
         onChange={(e) => setLocalSOS(e.target.value)}
       />
 
-      <label>Houve Troca do Carro?</label>
+      <label>
+        Houve Troca do Carro?<spam className="text-red-500">*</spam>
+      </label>
       <input
         className="input-type"
         type="text"
@@ -207,31 +316,47 @@ const GeradorTexto = () => {
         onChange={(e) => setHouveTrocaCarro(e.target.value)}
       />
 
-      <label>Horário de Retorno:</label>
+      <label>
+        Horário de Retorno:<spam className="text-red-500">*</spam>
+      </label>
       <input
+        id="horarioRetorno"
         className="input-type"
-        type="time"
+        type="text"
+        placeholder="Digite o horário de retorno"
         value={horarioRetorno}
         onChange={(e) => setHorarioRetorno(e.target.value)}
+        onKeyPress={formatarHorarioRetorno}
       />
 
-      <label>Horário de Chegada em Iguatu:</label>
+      <label>
+        Horário de Chegada em Iguatu:<spam className="text-red-500">*</spam>
+      </label>
       <input
+        id="horaChegadaIgu" // Adicione o ID aqui
         className="input-type"
-        type="time"
+        type="text"
+        placeholder="Informe o horário de chegada em Iguatu"
         value={horarioChegadaIguatu}
+        onKeyPress={horarioChegadaIgu} // Chame a função correta
         onChange={(e) => setHorarioChegadaIguatu(e.target.value)}
+        maxLength={5}
       />
 
-      <label>Data da Viagem:</label>
+      <label>
+        Plantão CCO:<spam className="text-red-500">*</spam>
+      </label>
       <input
         className="input-type"
-        type="date"
-        value={dataViagem}
-        onChange={(e) => setDataViagem(e.target.value)}
+        type="text"
+        placeholder="Nome do plantonista"
+        value={plantaoCco}
+        onChange={(e) => setPlantaoCco(e.target.value)}
       />
 
-      <label>Solução:</label>
+      <label>
+        Solução: <spam className="text-red-500">*</spam>
+      </label>
       <textarea
         value={solucao}
         placeholder="Preencha a Solução do problema."
@@ -245,7 +370,7 @@ const GeradorTexto = () => {
         Gerar Texto
       </button>
 
-      {mensagemErro && <p className="erro">{mensagemErro}</p>}
+      {mensagemErro && <p className="text-red-500">{mensagemErro}</p>}
 
       {textoGerado && (
         <div className="bg-white shadow-lg rounded-lg px-4 py-2">
