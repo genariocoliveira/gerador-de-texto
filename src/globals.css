@@ -10,3 +10,6 @@
 textarea{
     @apply border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-md;
 }
+.form-res{
+    @apply mx-auto flex flex-col gap-3 w-full sm:w-2/5 rounded-xl px-8 py-6;
+}
